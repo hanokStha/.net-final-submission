@@ -1,0 +1,72 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="login-box">
+    
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <div class="form-group has-feedback">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" value="super@admin.com" class="form-control" placeholder="Email" />
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" value="123456" class="form-control" placeholder="Password" />
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-6 hidden">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" asp-for="RememberMe">  @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+               
+               
+                <!-- /.col -->
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            </div>
+            <div style="margin-top:10px">
+
+                <button type="submit" class="btn btn-primary btn-block btn-flat" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"  >Register a new membership</button>
+            </div>
+            <!-- /.social-auth-links -->
+            <a asp-action="ForgotPassword" class="hidden">I forgot my password</a><br>
+            
+        </form>
+
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' /* optional */
+            });
+        });
+    </script>
+}
